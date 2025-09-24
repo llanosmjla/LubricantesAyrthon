@@ -11,7 +11,6 @@ namespace LubricantesAyrthonAPI.Dtos
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public required int IdSeller { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [Range(1.00, double.MaxValue, ErrorMessage = "El campo {0} debe ser al menos {1}.")]
         public decimal TotalPrice { get; set; }
 

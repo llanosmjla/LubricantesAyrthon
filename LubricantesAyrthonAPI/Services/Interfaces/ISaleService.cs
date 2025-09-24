@@ -6,6 +6,7 @@ namespace LubricantesAyrthonAPI.Services.Interfaces
 {
     public interface ISaleService : IBaseService<SaleCreateDto, SaleReadDto, SaleUpdateDto>
     {
+        public decimal CalculateTotalPrice(IEnumerable<SaleDetailCreateDto> saleDetails);
     }
 
 

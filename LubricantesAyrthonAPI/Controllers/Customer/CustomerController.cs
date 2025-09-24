@@ -36,6 +36,9 @@ namespace LubricantesAyrthonAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CustomerCreateDto customer)
         {
+            // Validar el modelo - al crear el test me salia error por no tener esta validacion
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             var createdCustomer = await _customerService.CreateAsync(customer);
             return CreatedAtAction(nameof(GetById), new { id = createdCustomer.Id }, createdCustomer);
         }
@@ -44,9 +47,9 @@ namespace LubricantesAyrthonAPI.Controllers
         public async Task<IActionResult> Update(int id, CustomerUpdateDto customer)
         {
             var result = await _customerService.UpdateAsync(id, customer);
-            if (!result)
+            if (result == null)
                 return NotFound();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

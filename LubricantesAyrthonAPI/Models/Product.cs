@@ -14,11 +14,13 @@ namespace LubricantesAyrthonAPI.Models
         [MaxLength(500)]
         public string? Description { get; set; }
 
+        [Required]
         [Range(1.00, double.MaxValue)]
-        public decimal Price { get; set; }
+        public required decimal Price { get; set; }
 
+        [Required]
         [Range(0, int.MaxValue)]
-        public int Stock { get; set; }
+        public required int Stock { get; set; }
 
         public List<SaleDetail>? SaleDetails { get; set; } = new();
     }

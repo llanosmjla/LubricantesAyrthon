@@ -77,10 +77,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         }
 
-        public async Task<bool> UpdateAsync(int id, SellerUpdateDto entity)
+        public async Task<SellerReadDto> UpdateAsync(int id, SellerUpdateDto entity)
         {
             var Seller = await _sellerRepository.GetByIdAsync(id);
-            if (Seller == null) return false;
+            if (Seller == null) return null;
 
             Seller.Name = entity.Name;
             Seller.Age = entity.Age;
@@ -88,8 +88,18 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             Seller.Phone = entity.Phone;
             Seller.Address = entity.Address;
             Seller.Salary = entity.Salary;
-            await _sellerRepository.UpdateAsync(id, Seller);
-            return true;
+
+            var updatedSeller = await _sellerRepository.UpdateAsync(id, Seller);
+            return new SellerReadDto
+            {
+                Id = updatedSeller.Id,
+                Name = updatedSeller.Name,
+                Age = updatedSeller.Age,
+                Email = updatedSeller.Email,
+                Phone = updatedSeller.Phone,
+                Address = updatedSeller.Address,
+                Salary = updatedSeller.Salary
+            };
         }
 
         public async Task<bool> DeleteAsync(int id)

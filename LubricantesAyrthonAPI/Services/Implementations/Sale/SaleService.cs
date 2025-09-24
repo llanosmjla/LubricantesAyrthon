@@ -55,14 +55,16 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 }).ToList()
             };
         }
-        
+
         public async Task<SaleReadDto> CreateAsync(SaleCreateDto entity)
         {
+
+
             var sale = new Sale
             {
                 IdCustomer = entity.IdCustomer,
                 IdSeller = entity.IdSeller,
-                TotalPrice = entity.TotalPrice,
+                TotalPrice = CalculateTotalPrice(entity.SaleDetails!),
                 SaleDate = entity.SaleDate,
                 SaleDetails = entity.SaleDetails.Select(sd => new SaleDetail
                 {
@@ -90,10 +92,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             };
         }
 
-        public async Task<bool> UpdateAsync(int id, SaleUpdateDto entity)
+        public async Task<SaleReadDto> UpdateAsync(int id, SaleUpdateDto entity)
         {
             var sale = await _saleRepository.GetByIdAsync(id);
-            if (sale == null) return false;
+            if (sale == null) return null;
 
             sale.IdCustomer = entity.IdCustomer;
             sale.IdSeller = entity.IdSeller;
@@ -106,8 +108,23 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 UnitPrice = sd.UnitPrice
             }).ToList();
 
-            await _saleRepository.UpdateAsync(id, sale);
-            return true;
+            var saleUpdated = await _saleRepository.UpdateAsync(id, sale);
+
+            return new SaleReadDto
+            {
+                Id = saleUpdated.Id,
+                IdCustomer = saleUpdated.IdCustomer,
+                IdSeller = saleUpdated.IdSeller,
+                TotalPrice = saleUpdated.TotalPrice,
+                SaleDate = saleUpdated.SaleDate,
+                SaleDetails = saleUpdated.SaleDetails?.Select(sd => new SaleDetailReadDto
+                {
+                    Id = sd.Id,
+                    IdProduct = sd.IdProduct,
+                    Quantity = sd.Quantity,
+                    UnitPrice = sd.UnitPrice
+                }).ToList()
+            };
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -117,6 +134,11 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
             await _saleRepository.DeleteAsync(id);
             return true;
+        }
+        
+        public decimal CalculateTotalPrice(IEnumerable<SaleDetailCreateDto> saleDetails)
+        {
+            return saleDetails.Sum(sd => sd.Quantity * sd.UnitPrice);
         }
     }
 }       

@@ -47,9 +47,9 @@ namespace LubricantesAyrthonAPI.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] ProductUpdateDto product)
         {
             var result = await _productService.UpdateAsync(id, product);
-            if (!result)
+            if (result == null)
                 return NotFound();
-            return NoContent();
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

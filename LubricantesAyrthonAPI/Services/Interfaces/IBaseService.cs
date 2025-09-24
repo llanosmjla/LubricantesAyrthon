@@ -5,7 +5,7 @@ namespace LubricantesAyrthonAPI.Services.Interfaces
         Task<IEnumerable<TRead>> GetAllAsync(); // read
         Task<TRead> GetByIdAsync(int id); // read by id
         Task<TRead> CreateAsync(TCreate entity); // create
-        Task<bool> UpdateAsync(int id, TUpdate entity); // update
+        Task<TRead> UpdateAsync(int id, TUpdate entity); // update
         Task<bool> DeleteAsync(int id); // delete
     }
 }

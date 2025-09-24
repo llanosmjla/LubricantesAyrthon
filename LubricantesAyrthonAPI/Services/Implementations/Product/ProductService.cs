@@ -1,5 +1,6 @@
 using LubricantesAyrthonAPI.Configuration;
 using LubricantesAyrthonAPI.Models;
+using LubricantesAyrthonAPI.Repositories.Interfaces;
 using LubricantesAyrthonAPI.Services.Dtos;
 using LubricantesAyrthonAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -8,31 +9,30 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly AppDbContext _context;
+        private readonly IBaseRepository<Product> _repository;
 
-        public ProductService(AppDbContext context)
+        public ProductService(IBaseRepository<Product> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<IEnumerable<ProductReadDto>> GetAllAsync()
         {
-            return await _context.Products
-                .Select(p => new ProductReadDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Price = p.Price,
-                    Stock = p.Stock
-                })
-                .ToListAsync();
+            var products = await _repository.GetAllAsync();
+            return products.Select(p => new ProductReadDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Stock = p.Stock
+            });
         }
 
         public async Task<ProductReadDto> GetByIdAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return null;
+            var product = await _repository.GetByIdAsync(id);
+            if (product == null) throw new KeyNotFoundException($"Producto con {id} no encontrado");
 
             return new ProductReadDto
             {
@@ -45,6 +45,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         }
         public async Task<ProductReadDto> CreateAsync(ProductCreateDto product)
         {
+
             var newProduct = new Product
             {
                 Name = product.Name,
@@ -53,44 +54,47 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 Stock = product.Stock
             };
 
-            _context.Products.Add(newProduct);
-            await _context.SaveChangesAsync();
+            var createdProduct = await _repository.AddAsync(newProduct);
 
             return new ProductReadDto
             {
-                Id = newProduct.Id,
-                Name = newProduct.Name,
-                Description = newProduct.Description,
-                Price = newProduct.Price,
-                Stock = newProduct.Stock
+                Id = createdProduct.Id,
+                Name = createdProduct.Name,
+                Description = createdProduct.Description,
+                Price = createdProduct.Price,
+                Stock = createdProduct.Stock
             };
 
         }
 
-        public async Task<bool> UpdateAsync(int id, ProductUpdateDto product)
+        public async Task<ProductReadDto> UpdateAsync(int id, ProductUpdateDto product)
         {
-            var existingProduct = await _context.Products.FindAsync(id);
-            if (existingProduct == null) return false;
+            var existingProduct = await _repository.GetByIdAsync(id);
+            if (existingProduct == null) return null;
 
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
             existingProduct.Stock = product.Stock;
 
-            _context.Products.Update(existingProduct);
-            await _context.SaveChangesAsync();
+            var updatedProduct = await _repository.UpdateAsync(id, existingProduct);
 
-            return true;
-            
+            return new ProductReadDto
+            {
+                Id = updatedProduct.Id,
+                Name = updatedProduct.Name,
+                Description = updatedProduct.Description,
+                Price = updatedProduct.Price,
+                Stock = updatedProduct.Stock
+            };
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _repository.GetByIdAsync(id);
             if (product == null) return false;
 
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(id);
 
             return true;
         }

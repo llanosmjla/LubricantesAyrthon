@@ -49,7 +49,7 @@ namespace LubricantesAyrthonAPI.Controllers
                 return BadRequest(ModelState);
 
             var updated = await _sellerService.UpdateAsync(id, seller);
-            if (!updated)
+            if (updated == null)
                 return NotFound($"Vendedor con ID {id} no encontrado.");
 
             return Ok(updated);

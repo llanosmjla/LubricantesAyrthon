@@ -29,11 +29,13 @@ namespace LubricantesAyrthonAPI.Services.Dtos
         [MaxLength(500, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         public string? Description { get; set; }
 
+        [Required]
         [Range(1.00, double.MaxValue, ErrorMessage = "El campo {0} debe ser al menos {1}.")]
         public required decimal Price { get; set; }
 
+        [Required]
         [Range(0, int.MaxValue, ErrorMessage = "El campo {0} no puede ser negativo.")]
-        public int Stock { get; set; }
+        public required int Stock { get; set; }
     }
 
     public class ProductReadDto

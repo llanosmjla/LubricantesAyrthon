@@ -38,7 +38,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<CustomerReadDto> GetByIdAsync(int id)
         {
             var customer = await _customerRepository.GetByIdAsync(id);
-            if (customer == null) throw new KeyNotFoundException("Cliente no encontrado");
+            if (customer == null) throw new KeyNotFoundException($"Cliente con {id} no encontrado");
 
             return new CustomerReadDto
             {
@@ -49,20 +49,20 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             };
         }
 
-        public async Task<CustomerReadDto> CreateAsync(CustomerCreateDto customer)
+        public async Task<CustomerReadDto> CreateAsync(CustomerCreateDto customerCreateDto)
         {
             var newCustomer = new Customer
             {
-                Ci = customer.Ci,
-                Name = customer.Name,
-                Email = customer.Email,
-                Phone = customer.Phone,
-                Address = customer.Address
+                Ci = customerCreateDto.Ci,
+                Name = customerCreateDto.Name,
+                Email = customerCreateDto.Email,
+                Phone = customerCreateDto.Phone,
+                Address = customerCreateDto.Address
 
             };
 
-            await _customerRepository.AddAsync(newCustomer);
-
+            var createdCustomer = await _customerRepository.AddAsync(newCustomer);
+            /*
             return new CustomerReadDto
             {
                 Id = newCustomer.Id,
@@ -72,20 +72,39 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 Phone = newCustomer.Phone,
                 Address = newCustomer.Address
             };
+            */
+
+            return new CustomerReadDto
+            {
+                Id = createdCustomer.Id,
+                Ci = createdCustomer.Ci,
+                Name = createdCustomer.Name,
+                Email = createdCustomer.Email,
+                Phone = createdCustomer.Phone,
+                Address = createdCustomer.Address
+            };
         }
 
-        public async Task<bool> UpdateAsync(int id, CustomerUpdateDto customer)
+        public async Task<CustomerReadDto> UpdateAsync(int id, CustomerUpdateDto customer)
         {
             var existingCustomer = await _customerRepository.GetByIdAsync(id);
-            if (existingCustomer == null) return false;
+            if (existingCustomer == null) return null;
 
             existingCustomer.Name = customer.Name;
             existingCustomer.Email = customer.Email;
             existingCustomer.Phone = customer.Phone;
             existingCustomer.Address = customer.Address;
 
-            await _customerRepository.UpdateAsync(id, existingCustomer);
-            return true;
+            var customerUpdated = await _customerRepository.UpdateAsync(id, existingCustomer);
+            return new CustomerReadDto
+            {
+                Id = customerUpdated.Id,
+                Ci = customerUpdated.Ci,
+                Name = customerUpdated.Name,
+                Email = customerUpdated.Email,
+                Phone = customerUpdated.Phone,
+                Address = customerUpdated.Address
+            };
         }
         
         public async Task<bool> DeleteAsync(int id)
