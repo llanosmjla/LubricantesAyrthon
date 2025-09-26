@@ -32,7 +32,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<ProductReadDto> GetByIdAsync(int id)
         {
             var product = await _repository.GetByIdAsync(id);
-            if (product == null) throw new KeyNotFoundException($"Producto con {id} no encontrado");
+            if (product == null) return null;
 
             return new ProductReadDto
             {
@@ -55,6 +55,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             };
 
             var createdProduct = await _repository.AddAsync(newProduct);
+            //if (createdProduct == null) return null;
 
             return new ProductReadDto
             {

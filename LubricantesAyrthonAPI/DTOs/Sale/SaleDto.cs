@@ -20,7 +20,7 @@ namespace LubricantesAyrthonAPI.Dtos
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [MinLength(1, ErrorMessage = "Debe haber al menos {1} detalle de venta.")]
-        public List<SaleDetailCreateDto>? SaleDetails { get; set; }
+        public required List<SaleDetailCreateDto> SaleDetails { get; set; }
     }
 
     public class SaleUpdateDto
@@ -41,7 +41,7 @@ namespace LubricantesAyrthonAPI.Dtos
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [MinLength(1, ErrorMessage = "Debe haber al menos {1} detalle de venta.")]
-        public List<SaleDetailUpdateDto>? SaleDetails { get; set; }
+        public required List<SaleDetailUpdateDto> SaleDetails { get; set; }
     }
 
     public class SaleReadDto
@@ -51,6 +51,7 @@ namespace LubricantesAyrthonAPI.Dtos
         public required int IdSeller { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime SaleDate { get; set; }
+        [Required]
         public List<SaleDetailReadDto>? SaleDetails { get; set; }
     }
 }

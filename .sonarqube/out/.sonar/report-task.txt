@@ -1,0 +1,7 @@
+organization=llanosmjla
+projectKey=llanosmjla_LubricantesAyrthon
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.67610
+dashboardUrl=https://sonarcloud.io/dashboard?id=llanosmjla_LubricantesAyrthon
+ceTaskId=AZl6QVPOCPS-DY5xn1AC
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZl6QVPOCPS-DY5xn1AC

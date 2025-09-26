@@ -10,6 +10,7 @@ namespace LubricantesAyrthonAPI.Tests.Services
 {
     public class ProductServiceTests
     {
+        // TC_001 – Validar creación de producto con datos válidos
         [Fact]
         public async Task CreateAsync_ShouldCreateProduct_WhenDataIsValid()
         {
@@ -32,7 +33,7 @@ namespace LubricantesAyrthonAPI.Tests.Services
             };
 
             var productoRepositoryMock = new Mock<IBaseRepository<Product>>();
-            
+
             productoRepositoryMock
                 .Setup(repository => repository.AddAsync(It.IsAny<Product>()))
                     .ReturnsAsync(expectedProduct);
@@ -67,7 +68,7 @@ namespace LubricantesAyrthonAPI.Tests.Services
             };
 
             var productRepositoryMock = new Mock<IBaseRepository<Product>>();
-          
+
             productRepositoryMock
                 .Setup(repo => repo.GetAllAsync())
                 .ReturnsAsync(expectedProducts);
@@ -113,6 +114,25 @@ namespace LubricantesAyrthonAPI.Tests.Services
             Assert.Equal(expectedProduct.Name, result.Name);
         }
 
+        // TC_005 – Validar obtención de producto inexistente por Id
+        [Fact]
+        public async Task GetByIdAsync_ReturnsNull_WhenProductDoesNotExist()
+        {
+            // Arrange
+            var repositoryMock = new Mock<IBaseRepository<Product>>();
+            repositoryMock.Setup(r => r.GetByIdAsync(999))
+                          .ReturnsAsync((Product?)null); // Mock devuelve null
+
+            var productService = new ProductService(repositoryMock.Object);
+
+            // Act
+            var result = await productService.GetByIdAsync(999);
+
+            // Assert
+            Assert.Null(result); // Espera null
+            repositoryMock.Verify(r => r.GetByIdAsync(999), Times.Once); // Verifica que se llamó una vez
+        }
+
         // TC_006 – Validar actualización de producto existente
         [Fact]
         public async Task UpdateAsync_ShouldReturnUpdatedProduct_WhenProductExists()
@@ -143,12 +163,11 @@ namespace LubricantesAyrthonAPI.Tests.Services
 
             // Configurar el GetByIdAsync para devolver el producto existente
             var productRepositoryMock = new Mock<IBaseRepository<Product>>();
-           
+
             productRepositoryMock
                 .Setup(repo => repo.GetByIdAsync(1))
                 .ReturnsAsync(existingProduct);
 
-            //var productRepositoryMock = new Mock<IBaseRepository<Product>>();
             productRepositoryMock
                 .Setup(repo => repo.UpdateAsync(existingProduct.Id, It.IsAny<Product>()))
                 .ReturnsAsync(updatedProduct);
@@ -166,9 +185,87 @@ namespace LubricantesAyrthonAPI.Tests.Services
             Assert.Equal(updatedProduct.Stock, result.Stock);
         }
 
+        // TC_007 – Validar actualización de producto inexistente
+        [Fact]
+        public async Task UpdateAsync_ReturnsNull_WhenProductDoesNotExist()
+        {
+            // Arrange
+            var repositoryMock = new Mock<IBaseRepository<Product>>();
+            repositoryMock.Setup(r => r.GetByIdAsync(999))
+                          .ReturnsAsync((Product?)null); // No existe producto con Id 999
+
+            var productService = new ProductService(repositoryMock.Object);
+
+            var updateDto = new ProductUpdateDto
+            {
+                Name = "Aceite Extra",
+                Price = 70.0m,
+                Stock = 50
+            };
+
+            // Act
+            var result = await productService.UpdateAsync(999, updateDto);
+
+            // Assert
+            Assert.Null(result); // Espera null porque no se encontró el producto
+            repositoryMock.Verify(r => r.GetByIdAsync(999), Times.Once); // Verifica llamada al repositorio
+            repositoryMock.Verify(r => r.UpdateAsync(It.IsAny<int>(), It.IsAny<Product>()), Times.Never); // No debe llamar a UpdateAsync
+        }
+
+        //Test case para actualizar un producto donde el repositorio devuelve null
+        [Fact]
+        public async Task UpdateAsync_RepositoryUpdateFails_ReturnsNull()
+        {
+            // Arrange
+            var updateDto = new ProductUpdateDto
+            {
+                Name = "Aceite Extra",
+                Price = 70.0m,
+                Stock = 50
+            };
+
+            var existingProduct = new Product
+            {
+                Id = 1,
+                Name = "Aceite 20W50",
+                Price = 50.0m,
+                Stock = 100
+            };
+
+            var updatedProduct = new Product
+            {
+                Id = 1,
+                Name = updateDto.Name,
+                Price = updateDto.Price,
+                Stock = updateDto.Stock
+            };
+
+            var productRepositoryMock = new Mock<IBaseRepository<Product>>();
+
+            productRepositoryMock
+                .Setup(repo => repo.GetByIdAsync(1))
+                .ReturnsAsync(existingProduct);
+
+            productRepositoryMock
+                .Setup(repo => repo.UpdateAsync(existingProduct.Id, It.IsAny<Product>()))
+                .ReturnsAsync((Product?)null);
+
+            var productService = new ProductService(productRepositoryMock.Object);
+
+            // Act
+            var result = await productService.UpdateAsync(existingProduct.Id, updateDto);
+
+            // Assert
+            Assert.Null(result);
+            
+            // Verificar que se haya llamado al repositorio
+            productRepositoryMock.Verify(repo => repo.UpdateAsync(existingProduct.Id, It.IsAny<Product>()), Times.Once);
+        }
+
+
         // TC_008 – Validar eliminación de producto existente
 
-        [Fact]
+            [Fact]
         public async Task DeleteAsync_ShouldCallRepositoryDelete_WhenProductExists()
         {
             // Arrange
@@ -200,6 +297,54 @@ namespace LubricantesAyrthonAPI.Tests.Services
             productRepositoryMock.Verify(repo => repo.DeleteAsync(1), Times.Once);
         }
 
+        //TC_009 – Validar eliminación de producto inexistente
+        [Fact]
+        public async Task DeleteProduct_NonExistent_ReturnsFalse()
+        {
+            // Arrange
+            var productRepositoryMock = new Mock<IBaseRepository<Product>>();
+
+            // Configurar el mock para que GetByIdAsync devuelva null
+            productRepositoryMock.Setup(r => r.GetByIdAsync(999))
+                                 .ReturnsAsync((Product?)null);
+
+            var productService = new ProductService(productRepositoryMock.Object);
+
+            // Act
+            var result = await productService.DeleteAsync(999);
+
+            // Assert
+            Assert.False(result);
+            productRepositoryMock.Verify(r => r.GetByIdAsync(999), Times.Once);
+            productRepositoryMock.Verify(r => r.DeleteAsync(It.IsAny<int>()), Times.Never);
+        }
+
+        //TC_012 - Validar que se retorne null al crear un producto con repositorio fallante
+        [Fact]
+        public async Task CreateProduct_RepositoryReturnsNull_ReturnsNull()
+        {
+            // Arrange
+            var productDto = new ProductCreateDto
+            {
+                Name = "Aceite Extra",
+                Description = "Aceite lubricante",
+                Price = 50.0m,
+                Stock = 20
+            };
+
+            var productRepositoryMock = new Mock<IBaseRepository<Product>>();
+            productRepositoryMock.Setup(r => r.AddAsync(It.IsAny<Product>()))
+                                 .ReturnsAsync((Product?)null);
+
+            var productService = new ProductService(productRepositoryMock.Object);
+
+            // Act
+            var result = await productService.CreateAsync(productDto);
+
+            // Assert
+            Assert.Null(result);
+            productRepositoryMock.Verify(r => r.AddAsync(It.IsAny<Product>()), Times.Once);
+        }
 
     }
 

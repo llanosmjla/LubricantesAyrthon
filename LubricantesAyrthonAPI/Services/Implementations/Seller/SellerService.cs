@@ -22,6 +22,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             return sellers.Select(s => new SellerReadDto
             {
                 Id = s.Id,
+                Ci = s.Ci,
                 Name = s.Name,
                 Age = s.Age,
                 Email = s.Email,
@@ -39,6 +40,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             return new SellerReadDto
             {
                 Id = seller.Id,
+                Ci = seller.Ci,
                 Name = seller.Name,
                 Age = seller.Age,
                 Email = seller.Email,
@@ -61,19 +63,20 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 Salary = entity.Salary
             };
             // Aquí deberías llamar al repositorio para guardar el vendedor en la base de datos
-            await _sellerRepository.AddAsync(seller);
+            var createdSeller = await _sellerRepository.AddAsync(seller);
+            if (createdSeller == null) return null;
 
             return new SellerReadDto
             {
-                Id = seller.Id,
-                Name = seller.Name,
-                Age = seller.Age,
-                Email = seller.Email,
-                Phone = seller.Phone,
-                Address = seller.Address,
-                Salary = seller.Salary
+                Id = createdSeller.Id,
+                Ci = createdSeller.Ci,
+                Name = createdSeller.Name,
+                Age = createdSeller.Age,
+                Email = createdSeller.Email,
+                Phone = createdSeller.Phone,
+                Address = createdSeller.Address,
+                Salary = createdSeller.Salary
             };
-
 
         }
 
@@ -90,9 +93,11 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             Seller.Salary = entity.Salary;
 
             var updatedSeller = await _sellerRepository.UpdateAsync(id, Seller);
+            if (updatedSeller == null) return null;
             return new SellerReadDto
             {
                 Id = updatedSeller.Id,
+                Ci = updatedSeller.Ci,
                 Name = updatedSeller.Name,
                 Age = updatedSeller.Age,
                 Email = updatedSeller.Email,
@@ -104,10 +109,13 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var Seller = await _sellerRepository.GetByIdAsync(id);
-            if (Seller == null) return false;
+            var seller = await _sellerRepository.GetByIdAsync(id);
 
-            await _sellerRepository.DeleteAsync(id);
+            if (seller == null) return false;
+
+            var result = await _sellerRepository.DeleteAsync(id);
+            if (!result) return false;
+            
             return true;
         }
 

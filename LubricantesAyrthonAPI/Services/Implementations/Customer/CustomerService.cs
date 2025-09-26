@@ -96,6 +96,9 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             existingCustomer.Address = customer.Address;
 
             var customerUpdated = await _customerRepository.UpdateAsync(id, existingCustomer);
+
+            if (customerUpdated == null) return null;
+
             return new CustomerReadDto
             {
                 Id = customerUpdated.Id,

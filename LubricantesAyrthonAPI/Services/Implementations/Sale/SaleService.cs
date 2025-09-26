@@ -16,7 +16,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<IEnumerable<SaleReadDto>> GetAllAsync()
         {
-            var sales = await _saleRepository.GetAllAsync();
+            var sales = await _saleRepository.GetAllAsync() ?? Enumerable.Empty<Sale>();
             return sales.Select(s => new SaleReadDto
             {
                 Id = s.Id,
@@ -46,7 +46,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 IdSeller = sale.IdSeller,
                 TotalPrice = sale.TotalPrice,
                 SaleDate = sale.SaleDate,
-                SaleDetails = sale.SaleDetails?.Select(sd => new SaleDetailReadDto
+                SaleDetails = sale.SaleDetails.Select(sd => new SaleDetailReadDto
                 {
                     Id = sd.Id,
                     IdProduct = sd.IdProduct,
@@ -58,8 +58,6 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<SaleReadDto> CreateAsync(SaleCreateDto entity)
         {
-
-
             var sale = new Sale
             {
                 IdCustomer = entity.IdCustomer,
@@ -74,15 +72,18 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 }).ToList()
             };
 
-            await _saleRepository.AddAsync(sale);
+            var saleCreated = await _saleRepository.AddAsync(sale);
+
+            if (saleCreated == null) return null;
+
             return new SaleReadDto
             {
-                Id = sale.Id,
-                IdCustomer = sale.IdCustomer,
-                IdSeller = sale.IdSeller,
-                TotalPrice = sale.TotalPrice,
-                SaleDate = sale.SaleDate,
-                SaleDetails = sale.SaleDetails?.Select(sd => new SaleDetailReadDto
+                Id = saleCreated.Id,
+                IdCustomer = saleCreated.IdCustomer,
+                IdSeller = saleCreated.IdSeller,
+                TotalPrice = saleCreated.TotalPrice,
+                SaleDate = saleCreated.SaleDate,
+                SaleDetails = saleCreated.SaleDetails.Select(sd => new SaleDetailReadDto
                 {
                     Id = sd.Id,
                     IdProduct = sd.IdProduct,
@@ -110,14 +111,16 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
             var saleUpdated = await _saleRepository.UpdateAsync(id, sale);
 
+            if (saleUpdated == null) return null;
+
             return new SaleReadDto
             {
-                Id = saleUpdated.Id,
+                Id = id,
                 IdCustomer = saleUpdated.IdCustomer,
                 IdSeller = saleUpdated.IdSeller,
                 TotalPrice = saleUpdated.TotalPrice,
                 SaleDate = saleUpdated.SaleDate,
-                SaleDetails = saleUpdated.SaleDetails?.Select(sd => new SaleDetailReadDto
+                SaleDetails = saleUpdated.SaleDetails.Select(sd => new SaleDetailReadDto
                 {
                     Id = sd.Id,
                     IdProduct = sd.IdProduct,

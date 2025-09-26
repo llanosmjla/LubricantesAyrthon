@@ -37,6 +37,10 @@ namespace LubricantesAyrthonAPI.Dtos
     public class SellerUpdateDto
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [MaxLength(20, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
+        [MinLength(7, ErrorMessage = "El campo {0} debe tener al menos {1} caracteres.")]
+        public required string Ci { get; set; }
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         [MinLength(2, ErrorMessage = "El campo {0} debe tener al menos {1} caracteres.")]
         public required string Name { get; set; }
@@ -62,6 +66,7 @@ namespace LubricantesAyrthonAPI.Dtos
     public class SellerReadDto
     {
         public int Id { get; set; }
+        public required string Ci { get; set; }
         public required string Name { get; set; }
         public required int Age { get; set; }
         public string? Email { get; set; }

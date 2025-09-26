@@ -1,0 +1,399 @@
+1
+Programobject
+	Program()Program.Program()—
+.LubricantesAyrthonAPI.Migrations.InitialCreate2Microsoft.EntityFrameworkCore.Migrations.Migrationobject≠
+=Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)lLubricantesAyrthonAPI.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)±
+?Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)nLubricantesAyrthonAPI.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)´
+<BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)kLubricantesAyrthonAPI.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)Q
+InitialCreate()>LubricantesAyrthonAPI.Migrations.InitialCreate.InitialCreate()º
+
+0LubricantesAyrthonAPI.Configuration.AppDbContext'Microsoft.EntityFrameworkCore.DbContextobjectí
+nAppDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<LubricantesAyrthonAPI.Configuration.AppDbContext>)üLubricantesAyrthonAPI.Configuration.AppDbContext.AppDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<LubricantesAyrthonAPI.Configuration.AppDbContext>)´
+;OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)lLubricantesAyrthonAPI.Configuration.AppDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)O
+Customers.get>LubricantesAyrthonAPI.Configuration.AppDbContext.Customers.getO
+Customers.set>LubricantesAyrthonAPI.Configuration.AppDbContext.Customers.setM
+Products.get=LubricantesAyrthonAPI.Configuration.AppDbContext.Products.getM
+Products.set=LubricantesAyrthonAPI.Configuration.AppDbContext.Products.setG
+	Sales.get:LubricantesAyrthonAPI.Configuration.AppDbContext.Sales.getG
+	Sales.set:LubricantesAyrthonAPI.Configuration.AppDbContext.Sales.setS
+SaleDetails.get@LubricantesAyrthonAPI.Configuration.AppDbContext.SaleDetails.getS
+SaleDetails.set@LubricantesAyrthonAPI.Configuration.AppDbContext.SaleDetails.setK
+Sellers.get<LubricantesAyrthonAPI.Configuration.AppDbContext.Sellers.getK
+Sellers.set<LubricantesAyrthonAPI.Configuration.AppDbContext.Sellers.setÇ
+5LubricantesAyrthonAPI.Migrations.AddUniqueConstraints2Microsoft.EntityFrameworkCore.Migrations.Migrationobject¥
+=Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)sLubricantesAyrthonAPI.Migrations.AddUniqueConstraints.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)∏
+?Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)uLubricantesAyrthonAPI.Migrations.AddUniqueConstraints.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)≤
+<BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)rLubricantesAyrthonAPI.Migrations.AddUniqueConstraints.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)f
+AddUniqueConstraints()LLubricantesAyrthonAPI.Migrations.AddUniqueConstraints.AddUniqueConstraints()Å
+4LubricantesAyrthonAPI.Controllers.CustomerController'Microsoft.AspNetCore.Mvc.ControllerBaseobject÷
+NCustomerController(LubricantesAyrthonAPI.Services.Interfaces.ICustomerService)ÉLubricantesAyrthonAPI.Controllers.CustomerController.CustomerController(LubricantesAyrthonAPI.Services.Interfaces.ICustomerService)I
+GetAll()=LubricantesAyrthonAPI.Controllers.CustomerController.GetAll()Q
+GetById(int)ALubricantesAyrthonAPI.Controllers.CustomerController.GetById(int)°
+4Create(LubricantesAyrthonAPI.Dtos.CustomerCreateDto)iLubricantesAyrthonAPI.Controllers.CustomerController.Create(LubricantesAyrthonAPI.Dtos.CustomerCreateDto)´
+9Update(int, LubricantesAyrthonAPI.Dtos.CustomerUpdateDto)nLubricantesAyrthonAPI.Controllers.CustomerController.Update(int, LubricantesAyrthonAPI.Dtos.CustomerUpdateDto)O
+Delete(int)@LubricantesAyrthonAPI.Controllers.CustomerController.Delete(int)ñ
+3LubricantesAyrthonAPI.Controllers.ProductController'Microsoft.AspNetCore.Mvc.ControllerBaseobject—
+LProductController(LubricantesAyrthonAPI.Services.Interfaces.IProductService)ÄLubricantesAyrthonAPI.Controllers.ProductController.ProductController(LubricantesAyrthonAPI.Services.Interfaces.IProductService)H
+GetAll()<LubricantesAyrthonAPI.Controllers.ProductController.GetAll()P
+GetById(int)@LubricantesAyrthonAPI.Controllers.ProductController.GetById(int)∞
+<Create(LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto)pLubricantesAyrthonAPI.Controllers.ProductController.Create(LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto)∫
+AUpdate(int, LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto)uLubricantesAyrthonAPI.Controllers.ProductController.Update(int, LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto)N
+Delete(int)?LubricantesAyrthonAPI.Controllers.ProductController.Delete(int)ƒ
+0LubricantesAyrthonAPI.Controllers.SaleController'Microsoft.AspNetCore.Mvc.ControllerBaseobject¡
+FSaleController(LubricantesAyrthonAPI.Services.Interfaces.ISaleService)wLubricantesAyrthonAPI.Controllers.SaleController.SaleController(LubricantesAyrthonAPI.Services.Interfaces.ISaleService)E
+GetAll()9LubricantesAyrthonAPI.Controllers.SaleController.GetAll()M
+GetById(int)=LubricantesAyrthonAPI.Controllers.SaleController.GetById(int)ï
+0Create(LubricantesAyrthonAPI.Dtos.SaleCreateDto)aLubricantesAyrthonAPI.Controllers.SaleController.Create(LubricantesAyrthonAPI.Dtos.SaleCreateDto)ü
+5Update(int, LubricantesAyrthonAPI.Dtos.SaleUpdateDto)fLubricantesAyrthonAPI.Controllers.SaleController.Update(int, LubricantesAyrthonAPI.Dtos.SaleUpdateDto)K
+Delete(int)<LubricantesAyrthonAPI.Controllers.SaleController.Delete(int)⁄
+>LubricantesAyrthonAPI.Services.Implementations.CustomerServiceobject:LubricantesAyrthonAPI.Services.Interfaces.ICustomerServiceÆ
+uCustomerService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Customer>)¥LubricantesAyrthonAPI.Services.Implementations.CustomerService.CustomerService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Customer>)]
+GetAllAsync()LLubricantesAyrthonAPI.Services.Implementations.CustomerService.GetAllAsync()e
+GetByIdAsync(int)PLubricantesAyrthonAPI.Services.Implementations.CustomerService.GetByIdAsync(int)µ
+9CreateAsync(LubricantesAyrthonAPI.Dtos.CustomerCreateDto)xLubricantesAyrthonAPI.Services.Implementations.CustomerService.CreateAsync(LubricantesAyrthonAPI.Dtos.CustomerCreateDto)ø
+>UpdateAsync(int, LubricantesAyrthonAPI.Dtos.CustomerUpdateDto)}LubricantesAyrthonAPI.Services.Implementations.CustomerService.UpdateAsync(int, LubricantesAyrthonAPI.Dtos.CustomerUpdateDto)c
+DeleteAsync(int)OLubricantesAyrthonAPI.Services.Implementations.CustomerService.DeleteAsync(int)•
+:LubricantesAyrthonAPI.Migrations.AppDbContextModelSnapshot:Microsoft.EntityFrameworkCore.Infrastructure.ModelSnapshotobject´
+6BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)qLubricantesAyrthonAPI.Migrations.AppDbContextModelSnapshot.BuildModel(Microsoft.EntityFrameworkCore.ModelBuilder)u
+AppDbContextModelSnapshot()VLubricantesAyrthonAPI.Migrations.AppDbContextModelSnapshot.AppDbContextModelSnapshot()ó
+*LubricantesAyrthonAPI.Dtos.CustomerReadDtoobjectQ
+CustomerReadDto()<LubricantesAyrthonAPI.Dtos.CustomerReadDto.CustomerReadDto();
+Id.get1LubricantesAyrthonAPI.Dtos.CustomerReadDto.Id.get;
+Id.set1LubricantesAyrthonAPI.Dtos.CustomerReadDto.Id.set;
+Ci.get1LubricantesAyrthonAPI.Dtos.CustomerReadDto.Ci.get;
+Ci.set1LubricantesAyrthonAPI.Dtos.CustomerReadDto.Ci.set?
+Name.get3LubricantesAyrthonAPI.Dtos.CustomerReadDto.Name.get?
+Name.set3LubricantesAyrthonAPI.Dtos.CustomerReadDto.Name.setA
+	Email.get4LubricantesAyrthonAPI.Dtos.CustomerReadDto.Email.getA
+	Email.set4LubricantesAyrthonAPI.Dtos.CustomerReadDto.Email.setA
+	Phone.get4LubricantesAyrthonAPI.Dtos.CustomerReadDto.Phone.getA
+	Phone.set4LubricantesAyrthonAPI.Dtos.CustomerReadDto.Phone.setE
+Address.get6LubricantesAyrthonAPI.Dtos.CustomerReadDto.Address.getE
+Address.set6LubricantesAyrthonAPI.Dtos.CustomerReadDto.Address.setø
+%LubricantesAyrthonAPI.Models.Customerobject>
+
+Customer()0LubricantesAyrthonAPI.Models.Customer.Customer()6
+Id.get,LubricantesAyrthonAPI.Models.Customer.Id.get6
+Id.set,LubricantesAyrthonAPI.Models.Customer.Id.set6
+Ci.get,LubricantesAyrthonAPI.Models.Customer.Ci.get6
+Ci.set,LubricantesAyrthonAPI.Models.Customer.Ci.set:
+Name.get.LubricantesAyrthonAPI.Models.Customer.Name.get:
+Name.set.LubricantesAyrthonAPI.Models.Customer.Name.set<
+	Email.get/LubricantesAyrthonAPI.Models.Customer.Email.get<
+	Email.set/LubricantesAyrthonAPI.Models.Customer.Email.set<
+	Phone.get/LubricantesAyrthonAPI.Models.Customer.Phone.get<
+	Phone.set/LubricantesAyrthonAPI.Models.Customer.Phone.set@
+Address.get1LubricantesAyrthonAPI.Models.Customer.Address.get@
+Address.set1LubricantesAyrthonAPI.Models.Customer.Address.set<
+	Sales.get/LubricantesAyrthonAPI.Models.Customer.Sales.get<
+	Sales.set/LubricantesAyrthonAPI.Models.Customer.Sales.setô
+4LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDtoobject]
+ProductUpdateDto()GLubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.ProductUpdateDto()I
+Name.get=LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Name.getI
+Name.set=LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Name.setW
+Description.getDLubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Description.getW
+Description.setDLubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Description.setK
+	Price.get>LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Price.getK
+	Price.set>LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Price.setK
+	Stock.get>LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Stock.getK
+	Stock.set>LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto.Stock.setπ
+,LubricantesAyrthonAPI.Dtos.CustomerCreateDtoobjectW
+CustomerCreateDto()@LubricantesAyrthonAPI.Dtos.CustomerCreateDto.CustomerCreateDto()=
+Ci.get3LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Ci.get=
+Ci.set3LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Ci.setA
+Name.get5LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Name.getA
+Name.set5LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Name.setC
+	Email.get6LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Email.getC
+	Email.set6LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Email.setC
+	Phone.get6LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Phone.getC
+	Phone.set6LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Phone.setG
+Address.get8LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Address.getG
+Address.set8LubricantesAyrthonAPI.Dtos.CustomerCreateDto.Address.setô
+4LubricantesAyrthonAPI.Services.Dtos.ProductCreateDtoobject]
+ProductCreateDto()GLubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.ProductCreateDto()I
+Name.get=LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Name.getI
+Name.set=LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Name.setW
+Description.getDLubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Description.getW
+Description.setDLubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Description.setK
+	Price.get>LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Price.getK
+	Price.set>LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Price.setK
+	Stock.get>LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Stock.getK
+	Stock.set>LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto.Stock.setπ
+,LubricantesAyrthonAPI.Dtos.CustomerUpdateDtoobjectW
+CustomerUpdateDto()@LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.CustomerUpdateDto()=
+Ci.get3LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Ci.get=
+Ci.set3LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Ci.setA
+Name.get5LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Name.getA
+Name.set5LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Name.setC
+	Email.get6LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Email.getC
+	Email.set6LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Email.setC
+	Phone.get6LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Phone.getC
+	Phone.set6LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Phone.setG
+Address.get8LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Address.getG
+Address.set8LubricantesAyrthonAPI.Dtos.CustomerUpdateDto.Address.setã
+2LubricantesAyrthonAPI.Services.Dtos.ProductReadDtoobjectW
+ProductReadDto()CLubricantesAyrthonAPI.Services.Dtos.ProductReadDto.ProductReadDto()C
+Id.get9LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Id.getC
+Id.set9LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Id.setG
+Name.get;LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Name.getG
+Name.set;LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Name.setU
+Description.getBLubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Description.getU
+Description.setBLubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Description.setI
+	Price.get<LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Price.getI
+	Price.set<LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Price.setI
+	Stock.get<LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Stock.getI
+	Stock.set<LubricantesAyrthonAPI.Services.Dtos.ProductReadDto.Stock.setÌ
+.LubricantesAyrthonAPI.Dtos.SaleDetailCreateDtoobject]
+SaleDetailCreateDto()DLubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.SaleDetailCreateDto()M
+IdProduct.get<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.IdProduct.getM
+IdProduct.set<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.IdProduct.setK
+Quantity.get;LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.Quantity.getK
+Quantity.set;LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.Quantity.setM
+UnitPrice.get<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.UnitPrice.getM
+UnitPrice.set<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto.UnitPrice.setB
+@LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<T>ç
+ELubricantesAyrthonAPI.Repositories.Implementations.CustomerRepositoryobject@LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<T>”
+DCustomerRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)äLubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.CustomerRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)d
+GetAllAsync()SLubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.GetAllAsync()l
+GetByIdAsync(int)WLubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.GetByIdAsync(int)®
+/AddAsync(LubricantesAyrthonAPI.Models.Customer)uLubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.AddAsync(LubricantesAyrthonAPI.Models.Customer)∏
+7UpdateAsync(int, LubricantesAyrthonAPI.Models.Customer)}LubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.UpdateAsync(int, LubricantesAyrthonAPI.Models.Customer)j
+DeleteAsync(int)VLubricantesAyrthonAPI.Repositories.Implementations.CustomerRepository.DeleteAsync(int)Ä
+DLubricantesAyrthonAPI.Repositories.Implementations.ProductRepositoryobject@LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<T>–
+CProductRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)àLubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.ProductRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)c
+GetAllAsync()RLubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.GetAllAsync()k
+GetByIdAsync(int)VLubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.GetByIdAsync(int)•
+.AddAsync(LubricantesAyrthonAPI.Models.Product)sLubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.AddAsync(LubricantesAyrthonAPI.Models.Product)µ
+6UpdateAsync(int, LubricantesAyrthonAPI.Models.Product){LubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.UpdateAsync(int, LubricantesAyrthonAPI.Models.Product)i
+DeleteAsync(int)ULubricantesAyrthonAPI.Repositories.Implementations.ProductRepository.DeleteAsync(int)Ì
+.LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDtoobject]
+SaleDetailUpdateDto()DLubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.SaleDetailUpdateDto()M
+IdProduct.get<LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.IdProduct.getM
+IdProduct.set<LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.IdProduct.setK
+Quantity.get;LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.Quantity.getK
+Quantity.set;LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.Quantity.setM
+UnitPrice.get<LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.UnitPrice.getM
+UnitPrice.set<LubricantesAyrthonAPI.Dtos.SaleDetailUpdateDto.UnitPrice.set◊
+,LubricantesAyrthonAPI.Dtos.SaleDetailReadDtoobjectW
+SaleDetailReadDto()@LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.SaleDetailReadDto()=
+Id.get3LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.Id.get=
+Id.set3LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.Id.setK
+IdProduct.get:LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.IdProduct.getK
+IdProduct.set:LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.IdProduct.setI
+Quantity.get9LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.Quantity.getI
+Quantity.set9LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.Quantity.setK
+UnitPrice.get:LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.UnitPrice.getK
+UnitPrice.set:LubricantesAyrthonAPI.Dtos.SaleDetailReadDto.UnitPrice.setÁ
+$LubricantesAyrthonAPI.Models.Productobject;
+	Product().LubricantesAyrthonAPI.Models.Product.Product()5
+Id.get+LubricantesAyrthonAPI.Models.Product.Id.get5
+Id.set+LubricantesAyrthonAPI.Models.Product.Id.set9
+Name.get-LubricantesAyrthonAPI.Models.Product.Name.get9
+Name.set-LubricantesAyrthonAPI.Models.Product.Name.setG
+Description.get4LubricantesAyrthonAPI.Models.Product.Description.getG
+Description.set4LubricantesAyrthonAPI.Models.Product.Description.set;
+	Price.get.LubricantesAyrthonAPI.Models.Product.Price.get;
+	Price.set.LubricantesAyrthonAPI.Models.Product.Price.set;
+	Stock.get.LubricantesAyrthonAPI.Models.Product.Stock.get;
+	Stock.set.LubricantesAyrthonAPI.Models.Product.Stock.setG
+SaleDetails.get4LubricantesAyrthonAPI.Models.Product.SaleDetails.getG
+SaleDetails.set4LubricantesAyrthonAPI.Models.Product.SaleDetails.set·
+(LubricantesAyrthonAPI.Dtos.SaleCreateDtoobjectK
+SaleCreateDto()8LubricantesAyrthonAPI.Dtos.SaleCreateDto.SaleCreateDto()I
+IdCustomer.get7LubricantesAyrthonAPI.Dtos.SaleCreateDto.IdCustomer.getI
+IdCustomer.set7LubricantesAyrthonAPI.Dtos.SaleCreateDto.IdCustomer.setE
+IdSeller.get5LubricantesAyrthonAPI.Dtos.SaleCreateDto.IdSeller.getE
+IdSeller.set5LubricantesAyrthonAPI.Dtos.SaleCreateDto.IdSeller.setI
+TotalPrice.get7LubricantesAyrthonAPI.Dtos.SaleCreateDto.TotalPrice.getI
+TotalPrice.set7LubricantesAyrthonAPI.Dtos.SaleCreateDto.TotalPrice.setE
+SaleDate.get5LubricantesAyrthonAPI.Dtos.SaleCreateDto.SaleDate.getE
+SaleDate.set5LubricantesAyrthonAPI.Dtos.SaleCreateDto.SaleDate.setK
+SaleDetails.get8LubricantesAyrthonAPI.Dtos.SaleCreateDto.SaleDetails.getK
+SaleDetails.set8LubricantesAyrthonAPI.Dtos.SaleCreateDto.SaleDetails.setÛ
+CLubricantesAyrthonAPI.Repositories.Implementations.SellerRepositoryobject@LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<T>Õ
+BSellerRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)ÜLubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.SellerRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)b
+GetAllAsync()QLubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.GetAllAsync()j
+GetByIdAsync(int)ULubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.GetByIdAsync(int)¢
+-AddAsync(LubricantesAyrthonAPI.Models.Seller)qLubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.AddAsync(LubricantesAyrthonAPI.Models.Seller)≤
+5UpdateAsync(int, LubricantesAyrthonAPI.Models.Seller)yLubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.UpdateAsync(int, LubricantesAyrthonAPI.Models.Seller)h
+DeleteAsync(int)TLubricantesAyrthonAPI.Repositories.Implementations.SellerRepository.DeleteAsync(int)Ÿ
+ALubricantesAyrthonAPI.Repositories.Implementations.SaleRepositoryobject@LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<T>«
+@SaleRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)ÇLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.SaleRepository(LubricantesAyrthonAPI.Configuration.AppDbContext)`
+GetAllAsync()OLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.GetAllAsync()h
+GetByIdAsync(int)SLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.GetByIdAsync(int)ú
++AddAsync(LubricantesAyrthonAPI.Models.Sale)mLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.AddAsync(LubricantesAyrthonAPI.Models.Sale)¨
+3UpdateAsync(int, LubricantesAyrthonAPI.Models.Sale)uLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.UpdateAsync(int, LubricantesAyrthonAPI.Models.Sale)f
+DeleteAsync(int)RLubricantesAyrthonAPI.Repositories.Implementations.SaleRepository.DeleteAsync(int)Ô
+=LubricantesAyrthonAPI.Services.Implementations.ProductServiceobject9LubricantesAyrthonAPI.Services.Interfaces.IProductService©
+sProductService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Product>)±LubricantesAyrthonAPI.Services.Implementations.ProductService.ProductService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Product>)\
+GetAllAsync()KLubricantesAyrthonAPI.Services.Implementations.ProductService.GetAllAsync()d
+GetByIdAsync(int)OLubricantesAyrthonAPI.Services.Implementations.ProductService.GetByIdAsync(int)ƒ
+ACreateAsync(LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto)LubricantesAyrthonAPI.Services.Implementations.ProductService.CreateAsync(LubricantesAyrthonAPI.Services.Dtos.ProductCreateDto)œ
+FUpdateAsync(int, LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto)ÑLubricantesAyrthonAPI.Services.Implementations.ProductService.UpdateAsync(int, LubricantesAyrthonAPI.Services.Dtos.ProductUpdateDto)b
+DeleteAsync(int)NLubricantesAyrthonAPI.Services.Implementations.ProductService.DeleteAsync(int)·
+(LubricantesAyrthonAPI.Dtos.SaleUpdateDtoobjectK
+SaleUpdateDto()8LubricantesAyrthonAPI.Dtos.SaleUpdateDto.SaleUpdateDto()I
+IdCustomer.get7LubricantesAyrthonAPI.Dtos.SaleUpdateDto.IdCustomer.getI
+IdCustomer.set7LubricantesAyrthonAPI.Dtos.SaleUpdateDto.IdCustomer.setE
+IdSeller.get5LubricantesAyrthonAPI.Dtos.SaleUpdateDto.IdSeller.getE
+IdSeller.set5LubricantesAyrthonAPI.Dtos.SaleUpdateDto.IdSeller.setI
+TotalPrice.get7LubricantesAyrthonAPI.Dtos.SaleUpdateDto.TotalPrice.getI
+TotalPrice.set7LubricantesAyrthonAPI.Dtos.SaleUpdateDto.TotalPrice.setE
+SaleDate.get5LubricantesAyrthonAPI.Dtos.SaleUpdateDto.SaleDate.getE
+SaleDate.set5LubricantesAyrthonAPI.Dtos.SaleUpdateDto.SaleDate.setK
+SaleDetails.get8LubricantesAyrthonAPI.Dtos.SaleUpdateDto.SaleDetails.getK
+SaleDetails.set8LubricantesAyrthonAPI.Dtos.SaleUpdateDto.SaleDetails.setç
+:LubricantesAyrthonAPI.Services.Interfaces.ICustomerServiceOLubricantesAyrthonAPI.Services.Interfaces.IBaseService<TCreate, TRead, TUpdate>≥
+
+:LubricantesAyrthonAPI.Services.Implementations.SaleServiceobject6LubricantesAyrthonAPI.Services.Interfaces.ISaleServiceö
+mSaleService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Sale>)®LubricantesAyrthonAPI.Services.Implementations.SaleService.SaleService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Sale>)Y
+GetAllAsync()HLubricantesAyrthonAPI.Services.Implementations.SaleService.GetAllAsync()a
+GetByIdAsync(int)LLubricantesAyrthonAPI.Services.Implementations.SaleService.GetByIdAsync(int)©
+5CreateAsync(LubricantesAyrthonAPI.Dtos.SaleCreateDto)pLubricantesAyrthonAPI.Services.Implementations.SaleService.CreateAsync(LubricantesAyrthonAPI.Dtos.SaleCreateDto)≥
+:UpdateAsync(int, LubricantesAyrthonAPI.Dtos.SaleUpdateDto)uLubricantesAyrthonAPI.Services.Implementations.SaleService.UpdateAsync(int, LubricantesAyrthonAPI.Dtos.SaleUpdateDto)_
+DeleteAsync(int)KLubricantesAyrthonAPI.Services.Implementations.SaleService.DeleteAsync(int)ñ
+kCalculateTotalPrice(System.Collections.Generic.IEnumerable<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto>)¶LubricantesAyrthonAPI.Services.Implementations.SaleService.CalculateTotalPrice(System.Collections.Generic.IEnumerable<LubricantesAyrthonAPI.Dtos.SaleDetailCreateDto>)Q
+OLubricantesAyrthonAPI.Services.Interfaces.IBaseService<TCreate, TRead, TUpdate>€
+!LubricantesAyrthonAPI.Models.Saleobject2
+Sale()(LubricantesAyrthonAPI.Models.Sale.Sale()2
+Id.get(LubricantesAyrthonAPI.Models.Sale.Id.get2
+Id.set(LubricantesAyrthonAPI.Models.Sale.Id.setB
+IdCustomer.get0LubricantesAyrthonAPI.Models.Sale.IdCustomer.getB
+IdCustomer.set0LubricantesAyrthonAPI.Models.Sale.IdCustomer.set>
+Customer.get.LubricantesAyrthonAPI.Models.Sale.Customer.get>
+Customer.set.LubricantesAyrthonAPI.Models.Sale.Customer.set>
+IdSeller.get.LubricantesAyrthonAPI.Models.Sale.IdSeller.get>
+IdSeller.set.LubricantesAyrthonAPI.Models.Sale.IdSeller.set:
+
+Seller.get,LubricantesAyrthonAPI.Models.Sale.Seller.get:
+
+Seller.set,LubricantesAyrthonAPI.Models.Sale.Seller.setB
+TotalPrice.get0LubricantesAyrthonAPI.Models.Sale.TotalPrice.getB
+TotalPrice.set0LubricantesAyrthonAPI.Models.Sale.TotalPrice.set>
+SaleDate.get.LubricantesAyrthonAPI.Models.Sale.SaleDate.get>
+SaleDate.set.LubricantesAyrthonAPI.Models.Sale.SaleDate.setD
+SaleDetails.get1LubricantesAyrthonAPI.Models.Sale.SaleDetails.getD
+SaleDetails.set1LubricantesAyrthonAPI.Models.Sale.SaleDetails.setå
+9LubricantesAyrthonAPI.Services.Interfaces.IProductServiceOLubricantesAyrthonAPI.Services.Interfaces.IBaseService<TCreate, TRead, TUpdate>â
+6LubricantesAyrthonAPI.Services.Interfaces.ISaleServiceOLubricantesAyrthonAPI.Services.Interfaces.IBaseService<TCreate, TRead, TUpdate>ã
+8LubricantesAyrthonAPI.Services.Interfaces.ISellerServiceOLubricantesAyrthonAPI.Services.Interfaces.IBaseService<TCreate, TRead, TUpdate>‚
+2LubricantesAyrthonAPI.Controllers.SellerController'Microsoft.AspNetCore.Mvc.ControllerBaseobjectÀ
+JSellerController(LubricantesAyrthonAPI.Services.Interfaces.ISellerService)}LubricantesAyrthonAPI.Controllers.SellerController.SellerController(LubricantesAyrthonAPI.Services.Interfaces.ISellerService)G
+GetAll();LubricantesAyrthonAPI.Controllers.SellerController.GetAll()O
+GetById(int)?LubricantesAyrthonAPI.Controllers.SellerController.GetById(int)õ
+2Create(LubricantesAyrthonAPI.Dtos.SellerCreateDto)eLubricantesAyrthonAPI.Controllers.SellerController.Create(LubricantesAyrthonAPI.Dtos.SellerCreateDto)•
+7Update(int, LubricantesAyrthonAPI.Dtos.SellerUpdateDto)jLubricantesAyrthonAPI.Controllers.SellerController.Update(int, LubricantesAyrthonAPI.Dtos.SellerUpdateDto)M
+Delete(int)>LubricantesAyrthonAPI.Controllers.SellerController.Delete(int)∑
+&LubricantesAyrthonAPI.Dtos.SaleReadDtoobjectE
+SaleReadDto()4LubricantesAyrthonAPI.Dtos.SaleReadDto.SaleReadDto()7
+Id.get-LubricantesAyrthonAPI.Dtos.SaleReadDto.Id.get7
+Id.set-LubricantesAyrthonAPI.Dtos.SaleReadDto.Id.setG
+IdCustomer.get5LubricantesAyrthonAPI.Dtos.SaleReadDto.IdCustomer.getG
+IdCustomer.set5LubricantesAyrthonAPI.Dtos.SaleReadDto.IdCustomer.setC
+IdSeller.get3LubricantesAyrthonAPI.Dtos.SaleReadDto.IdSeller.getC
+IdSeller.set3LubricantesAyrthonAPI.Dtos.SaleReadDto.IdSeller.setG
+TotalPrice.get5LubricantesAyrthonAPI.Dtos.SaleReadDto.TotalPrice.getG
+TotalPrice.set5LubricantesAyrthonAPI.Dtos.SaleReadDto.TotalPrice.setC
+SaleDate.get3LubricantesAyrthonAPI.Dtos.SaleReadDto.SaleDate.getC
+SaleDate.set3LubricantesAyrthonAPI.Dtos.SaleReadDto.SaleDate.setI
+SaleDetails.get6LubricantesAyrthonAPI.Dtos.SaleReadDto.SaleDetails.getI
+SaleDetails.set6LubricantesAyrthonAPI.Dtos.SaleReadDto.SaleDetails.set∫
+<LubricantesAyrthonAPI.Services.Implementations.SellerServiceobject8LubricantesAyrthonAPI.Services.Interfaces.ISellerService§
+qSellerService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Seller>)ÆLubricantesAyrthonAPI.Services.Implementations.SellerService.SellerService(LubricantesAyrthonAPI.Repositories.Interfaces.IBaseRepository<LubricantesAyrthonAPI.Models.Seller>)[
+GetAllAsync()JLubricantesAyrthonAPI.Services.Implementations.SellerService.GetAllAsync()c
+GetByIdAsync(int)NLubricantesAyrthonAPI.Services.Implementations.SellerService.GetByIdAsync(int)Ø
+7CreateAsync(LubricantesAyrthonAPI.Dtos.SellerCreateDto)tLubricantesAyrthonAPI.Services.Implementations.SellerService.CreateAsync(LubricantesAyrthonAPI.Dtos.SellerCreateDto)π
+<UpdateAsync(int, LubricantesAyrthonAPI.Dtos.SellerUpdateDto)yLubricantesAyrthonAPI.Services.Implementations.SellerService.UpdateAsync(int, LubricantesAyrthonAPI.Dtos.SellerUpdateDto)a
+DeleteAsync(int)MLubricantesAyrthonAPI.Services.Implementations.SellerService.DeleteAsync(int)•
+*LubricantesAyrthonAPI.Dtos.SellerCreateDtoobjectQ
+SellerCreateDto()<LubricantesAyrthonAPI.Dtos.SellerCreateDto.SellerCreateDto();
+Ci.get1LubricantesAyrthonAPI.Dtos.SellerCreateDto.Ci.get;
+Ci.set1LubricantesAyrthonAPI.Dtos.SellerCreateDto.Ci.set?
+Name.get3LubricantesAyrthonAPI.Dtos.SellerCreateDto.Name.get?
+Name.set3LubricantesAyrthonAPI.Dtos.SellerCreateDto.Name.set=
+Age.get2LubricantesAyrthonAPI.Dtos.SellerCreateDto.Age.get=
+Age.set2LubricantesAyrthonAPI.Dtos.SellerCreateDto.Age.setA
+	Email.get4LubricantesAyrthonAPI.Dtos.SellerCreateDto.Email.getA
+	Email.set4LubricantesAyrthonAPI.Dtos.SellerCreateDto.Email.setA
+	Phone.get4LubricantesAyrthonAPI.Dtos.SellerCreateDto.Phone.getA
+	Phone.set4LubricantesAyrthonAPI.Dtos.SellerCreateDto.Phone.setE
+Address.get6LubricantesAyrthonAPI.Dtos.SellerCreateDto.Address.getE
+Address.set6LubricantesAyrthonAPI.Dtos.SellerCreateDto.Address.setC
+
+Salary.get5LubricantesAyrthonAPI.Dtos.SellerCreateDto.Salary.getC
+
+Salary.set5LubricantesAyrthonAPI.Dtos.SellerCreateDto.Salary.set´
+*LubricantesAyrthonAPI.Dtos.SellerUpdateDtoobjectQ
+SellerUpdateDto()<LubricantesAyrthonAPI.Dtos.SellerUpdateDto.SellerUpdateDto()?
+Name.get3LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Name.get?
+Name.set3LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Name.set=
+Age.get2LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Age.get=
+Age.set2LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Age.setA
+	Email.get4LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Email.getA
+	Email.set4LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Email.setA
+	Phone.get4LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Phone.getA
+	Phone.set4LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Phone.setE
+Address.get6LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Address.getE
+Address.set6LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Address.setC
+
+Salary.get5LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Salary.getC
+
+Salary.set5LubricantesAyrthonAPI.Dtos.SellerUpdateDto.Salary.setÅ
+(LubricantesAyrthonAPI.Dtos.SellerReadDtoobjectK
+SellerReadDto()8LubricantesAyrthonAPI.Dtos.SellerReadDto.SellerReadDto()9
+Id.get/LubricantesAyrthonAPI.Dtos.SellerReadDto.Id.get9
+Id.set/LubricantesAyrthonAPI.Dtos.SellerReadDto.Id.set=
+Name.get1LubricantesAyrthonAPI.Dtos.SellerReadDto.Name.get=
+Name.set1LubricantesAyrthonAPI.Dtos.SellerReadDto.Name.set;
+Age.get0LubricantesAyrthonAPI.Dtos.SellerReadDto.Age.get;
+Age.set0LubricantesAyrthonAPI.Dtos.SellerReadDto.Age.set?
+	Email.get2LubricantesAyrthonAPI.Dtos.SellerReadDto.Email.get?
+	Email.set2LubricantesAyrthonAPI.Dtos.SellerReadDto.Email.set?
+	Phone.get2LubricantesAyrthonAPI.Dtos.SellerReadDto.Phone.get?
+	Phone.set2LubricantesAyrthonAPI.Dtos.SellerReadDto.Phone.setC
+Address.get4LubricantesAyrthonAPI.Dtos.SellerReadDto.Address.getC
+Address.set4LubricantesAyrthonAPI.Dtos.SellerReadDto.Address.setA
+
+Salary.get3LubricantesAyrthonAPI.Dtos.SellerReadDto.Salary.getA
+
+Salary.set3LubricantesAyrthonAPI.Dtos.SellerReadDto.Salary.setü
+'LubricantesAyrthonAPI.Models.SaleDetailobjectD
+SaleDetail()4LubricantesAyrthonAPI.Models.SaleDetail.SaleDetail()8
+Id.get.LubricantesAyrthonAPI.Models.SaleDetail.Id.get8
+Id.set.LubricantesAyrthonAPI.Models.SaleDetail.Id.set@
+
+IdSale.get2LubricantesAyrthonAPI.Models.SaleDetail.IdSale.get@
+
+IdSale.set2LubricantesAyrthonAPI.Models.SaleDetail.IdSale.set<
+Sale.get0LubricantesAyrthonAPI.Models.SaleDetail.Sale.get<
+Sale.set0LubricantesAyrthonAPI.Models.SaleDetail.Sale.setF
+IdProduct.get5LubricantesAyrthonAPI.Models.SaleDetail.IdProduct.getF
+IdProduct.set5LubricantesAyrthonAPI.Models.SaleDetail.IdProduct.setB
+Product.get3LubricantesAyrthonAPI.Models.SaleDetail.Product.getB
+Product.set3LubricantesAyrthonAPI.Models.SaleDetail.Product.setD
+Quantity.get4LubricantesAyrthonAPI.Models.SaleDetail.Quantity.getD
+Quantity.set4LubricantesAyrthonAPI.Models.SaleDetail.Quantity.setF
+UnitPrice.get5LubricantesAyrthonAPI.Models.SaleDetail.UnitPrice.getF
+UnitPrice.set5LubricantesAyrthonAPI.Models.SaleDetail.UnitPrice.setá	
+#LubricantesAyrthonAPI.Models.Sellerobject8
+Seller(),LubricantesAyrthonAPI.Models.Seller.Seller()4
+Id.get*LubricantesAyrthonAPI.Models.Seller.Id.get4
+Id.set*LubricantesAyrthonAPI.Models.Seller.Id.set4
+Ci.get*LubricantesAyrthonAPI.Models.Seller.Ci.get4
+Ci.set*LubricantesAyrthonAPI.Models.Seller.Ci.set8
+Name.get,LubricantesAyrthonAPI.Models.Seller.Name.get8
+Name.set,LubricantesAyrthonAPI.Models.Seller.Name.set6
+Age.get+LubricantesAyrthonAPI.Models.Seller.Age.get6
+Age.set+LubricantesAyrthonAPI.Models.Seller.Age.set:
+	Email.get-LubricantesAyrthonAPI.Models.Seller.Email.get:
+	Email.set-LubricantesAyrthonAPI.Models.Seller.Email.set:
+	Phone.get-LubricantesAyrthonAPI.Models.Seller.Phone.get:
+	Phone.set-LubricantesAyrthonAPI.Models.Seller.Phone.set>
+Address.get/LubricantesAyrthonAPI.Models.Seller.Address.get>
+Address.set/LubricantesAyrthonAPI.Models.Seller.Address.set<
+
+Salary.get.LubricantesAyrthonAPI.Models.Seller.Salary.get<
+
+Salary.set.LubricantesAyrthonAPI.Models.Seller.Salary.set:
+	Sales.get-LubricantesAyrthonAPI.Models.Seller.Sales.get:
+	Sales.set-LubricantesAyrthonAPI.Models.Seller.Sales.set

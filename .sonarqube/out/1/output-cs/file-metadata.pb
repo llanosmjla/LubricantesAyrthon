@@ -1,0 +1,13 @@
+ç
+ÅC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\obj\Debug\net9.0\LubricantesAyrthonAPI.Tests.AssemblyInfo.csutf-8è
+ÉC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\obj\Debug\net9.0\LubricantesAyrthonAPI.Tests.GlobalUsings.g.csutf-8ê
+ÑC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\obj\Debug\net9.0\.NETCoreApp,Version=v9.0.AssemblyAttributes.csutf-8~
+sC:\Users\josel\.nuget\packages\microsoft.net.test.sdk\17.12.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.csutf-8y
+pC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\TestDoubles\Stubs\CustomerRepositoryStub.csutf-8y
+pC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\TestDoubles\Fakes\CustomerRepositoryFake.csutf-8j
+aC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Services\SaleServiceTests.csutf-8m
+dC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Services\ProductServiceTests.csutf-8n
+eC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Services\CustomerServiceTests.csutf-8f
+]C:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Dtos\CustomerDtoTests.csutf-8s
+jC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Controllers\ProductControllerTests.csutf-8t
+kC:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI.Tests\Controllers\CustomerControllerTests.csutf-8

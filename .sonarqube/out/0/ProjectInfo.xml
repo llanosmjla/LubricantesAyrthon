@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>LubricantesAyrthonAPI</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>f75bd6d2-6728-f31e-dec0-033b9cf4b387</ProjectGuid>
+  <FullPath>C:\Diplomado\Proyecto\LubricantesAyrthon\LubricantesAyrthonAPI\LubricantesAyrthonAPI.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResultFiles>
+    <AnalysisResultFile Id="FilesToAnalyze" Location="C:\Diplomado\Proyecto\LubricantesAyrthon\.sonarqube\conf\0\FilesToAnalyze.txt" />
+  </AnalysisResultFiles>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Diplomado\Proyecto\LubricantesAyrthon\.sonarqube\out\0\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Diplomado\Proyecto\LubricantesAyrthon\.sonarqube\out\0</Property>
+    <Property Name="sonar.cs.scanner.telemetry">C:\Diplomado\Proyecto\LubricantesAyrthon\.sonarqube\out\0\Telemetry.json</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net9.0</TargetFramework>
+</ProjectInfo>

@@ -12,7 +12,7 @@ namespace LubricantesAyrthonAPI.Tests.Controllers
     public class ProductControllerTests
     {
 
-        // TC_002
+        // TC_002: Valida 
         [Fact]
         public async Task CreateAsync_ShouldThrowArgumentException_WhenNameIsEmpty()
         {

@@ -24,7 +24,7 @@ namespace LubricantesAyrthonAPI.Models
         public DateTime SaleDate { get; set; }
 
         [Required]
-        public List<SaleDetail>? SaleDetails { get; set; } = new();
+        public required List<SaleDetail> SaleDetails { get; set; } = new();
     }
     
 }
