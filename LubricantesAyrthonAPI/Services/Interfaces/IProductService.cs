@@ -5,6 +5,9 @@ namespace LubricantesAyrthonAPI.Services.Interfaces
 {
     public interface IProductService : IBaseService<ProductCreateDto, ProductReadDto, ProductUpdateDto>
     {
+        // Métodos adicionales relacionados con productos - Logica de negocio
+        Task<bool> IsStockAvailable(int productId, int quantity);
+        Task<bool> UpdateStockAfterSaleAsync(int productId, int quantitySold);
     }
 
     /*public interface IProductService

@@ -1,4 +1,6 @@
+using System.Data;
 using LubricantesAyrthonAPI.Configuration;
+using LubricantesAyrthonAPI.Exceptions;
 using LubricantesAyrthonAPI.Models;
 using LubricantesAyrthonAPI.Repositories.Interfaces;
 using LubricantesAyrthonAPI.Services.Dtos;
@@ -32,7 +34,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<ProductReadDto> GetByIdAsync(int id)
         {
             var product = await _repository.GetByIdAsync(id);
-            if (product == null) return null;
+            if (product == null)
+            {
+                throw new KeyNotFoundException($"Producto con Id {id} no encontrado.");
+            }
 
             return new ProductReadDto
             {
@@ -45,6 +50,12 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         }
         public async Task<ProductReadDto> CreateAsync(ProductCreateDto product)
         {
+            var allProduct = await _repository.GetAllAsync();
+            if (allProduct.Any(p => p.Name.ToLower() == product.Name.ToLower()))
+            {
+                throw new DuplicateProductNameException($"El producto con nombre: '{product.Name}' ya existe.");
+            }
+
 
             var newProduct = new Product
             {
@@ -55,7 +66,6 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             };
 
             var createdProduct = await _repository.AddAsync(newProduct);
-            //if (createdProduct == null) return null;
 
             return new ProductReadDto
             {
@@ -71,7 +81,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<ProductReadDto> UpdateAsync(int id, ProductUpdateDto product)
         {
             var existingProduct = await _repository.GetByIdAsync(id);
-            if (existingProduct == null) return null;
+            if (existingProduct == null)
+            {
+                throw new KeyNotFoundException($"Producto con Id {id} no encontrado.");
+            } 
 
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
@@ -80,6 +93,11 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
             var updatedProduct = await _repository.UpdateAsync(id, existingProduct);
 
+            if (updatedProduct == null)
+            {
+                throw new DataException("Error al actualizar el producto.");
+            }
+            
             return new ProductReadDto
             {
                 Id = updatedProduct.Id,
@@ -99,6 +117,26 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
             return true;
         }
-       
+
+        // Logica de negocio adicional
+        public async Task<bool> IsStockAvailable(int productId, int quantity)
+        {
+            var product = await _repository.GetByIdAsync(productId);
+            if (product == null) return false;
+
+            return product.Stock >= quantity;
+        }
+
+        public async Task<bool> UpdateStockAfterSaleAsync(int productId, int quantitySold)
+        {
+            var product = await _repository.GetByIdAsync(productId);
+            if (product == null) return false;
+
+            if (product.Stock < quantitySold) return false;
+
+            product.Stock -= quantitySold;
+            await _repository.UpdateAsync(productId, product);
+            return true;
+        }
     }
 }

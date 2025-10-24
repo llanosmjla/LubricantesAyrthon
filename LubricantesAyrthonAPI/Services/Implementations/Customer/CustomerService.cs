@@ -38,7 +38,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<CustomerReadDto> GetByIdAsync(int id)
         {
             var customer = await _customerRepository.GetByIdAsync(id);
-            if (customer == null) throw new KeyNotFoundException($"Cliente con {id} no encontrado");
+            if (customer == null)
+            {
+                throw new KeyNotFoundException($"Cliente con Id {id} no encontrado.");
+            }
 
             return new CustomerReadDto
             {
@@ -51,7 +54,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<CustomerReadDto> CreateAsync(CustomerCreateDto customerCreateDto)
         {
-            var newCustomer = new Customer
+            var createdCustomer = await _customerRepository.AddAsync(new Customer
             {
                 Ci = customerCreateDto.Ci,
                 Name = customerCreateDto.Name,
@@ -59,20 +62,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 Phone = customerCreateDto.Phone,
                 Address = customerCreateDto.Address
 
-            };
-
-            var createdCustomer = await _customerRepository.AddAsync(newCustomer);
-            /*
-            return new CustomerReadDto
-            {
-                Id = newCustomer.Id,
-                Ci = newCustomer.Ci,
-                Name = newCustomer.Name,
-                Email = newCustomer.Email,
-                Phone = newCustomer.Phone,
-                Address = newCustomer.Address
-            };
-            */
+            });
 
             return new CustomerReadDto
             {
@@ -113,7 +103,10 @@ namespace LubricantesAyrthonAPI.Services.Implementations
         public async Task<bool> DeleteAsync(int id)
         {
             var customer = await _customerRepository.GetByIdAsync(id);
-            if (customer == null) return false;
+            if (customer == null)
+            {
+                throw new KeyNotFoundException($"Cliente con Id {id} no encontrado.");
+            }
 
             await _customerRepository.DeleteAsync(id);
             return true;

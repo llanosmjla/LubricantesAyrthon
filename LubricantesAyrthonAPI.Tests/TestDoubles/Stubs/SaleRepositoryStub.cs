@@ -5,17 +5,6 @@ namespace LubricantesAyrthonAPI.Tests.TestDoubles.Stubs
 {
     public class SaleRepositoryStub : IBaseRepository<Sale>
     {
-
-        public Task<Sale> AddAsync(Sale entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> DeleteAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Sale>> GetAllAsync()
         {
             var sales = new List<Sale>()
@@ -34,6 +23,13 @@ namespace LubricantesAyrthonAPI.Tests.TestDoubles.Stubs
                             IdProduct = 1,
                             Quantity = 1,
                             UnitPrice = 1
+                        },
+                        new SaleDetail
+                        {
+                            Id = 2,
+                            IdProduct = 2,
+                            Quantity = 2,
+                            UnitPrice = 2
                         }
                     }
                 }
@@ -41,9 +37,47 @@ namespace LubricantesAyrthonAPI.Tests.TestDoubles.Stubs
             return await Task.FromResult(sales);
         }
 
-        public Task<Sale?> GetByIdAsync(int id)
+        public Task<Sale> AddAsync(Sale entity)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(entity);
+        }
+
+        public Task<bool> DeleteAsync(int id)
+        {
+            return Task.FromResult(false);
+        }
+
+        public Task<Sale> GetByIdAsync(int id)
+        {
+            if (id == 1)
+            {
+                return Task.FromResult(new Sale
+                {
+                    Id = 1,
+                    IdCustomer = 101,
+                    IdSeller = 201,
+                    TotalPrice = 150.50m,
+                    SaleDate = DateTime.Now,
+                    SaleDetails = new List<SaleDetail>
+                    {
+                        new SaleDetail
+                        {
+                            Id = 1,
+                            IdProduct = 301,
+                            Quantity = 2,
+                            UnitPrice = 50.25m
+                        },
+                        new SaleDetail
+                        {
+                            Id = 2,
+                            IdProduct = 302,
+                            Quantity = 1,
+                            UnitPrice = 50.00m
+                        }
+                    }
+                });
+            }
+            return Task.FromResult<Sale>(null);
         }
 
         public Task<Sale?> UpdateAsync(int id, Sale entity)

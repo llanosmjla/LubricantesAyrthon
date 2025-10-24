@@ -1,5 +1,6 @@
 using LubricantesAyrthonAPI.Dtos;
 using LubricantesAyrthonAPI.Models;
+using LubricantesAyrthonAPI.Repositories.Implementations;
 using LubricantesAyrthonAPI.Repositories.Interfaces;
 using LubricantesAyrthonAPI.Services.Interfaces;
 
@@ -8,10 +9,13 @@ namespace LubricantesAyrthonAPI.Services.Implementations
     public class SaleService : ISaleService
     {
         private readonly IBaseRepository<Sale> _saleRepository;
+        private readonly IProductService _productService;
 
-        public SaleService(IBaseRepository<Sale> saleRepository)
+
+        public SaleService(IBaseRepository<Sale> saleRepository, IProductService productService)
         {
             _saleRepository = saleRepository;
+            _productService = productService;
         }
 
         public async Task<IEnumerable<SaleReadDto>> GetAllAsync()
@@ -24,7 +28,7 @@ namespace LubricantesAyrthonAPI.Services.Implementations
                 IdSeller = s.IdSeller,
                 TotalPrice = s.TotalPrice,
                 SaleDate = s.SaleDate,
-                SaleDetails = s.SaleDetails?.Select(sd => new SaleDetailReadDto
+                SaleDetails = s.SaleDetails.Select(sd => new SaleDetailReadDto
                 {
                     Id = sd.Id,
                     IdProduct = sd.IdProduct,
@@ -58,6 +62,14 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<SaleReadDto> CreateAsync(SaleCreateDto entity)
         {
+            foreach (var detail in entity.SaleDetails)
+            {
+                if (!await _productService.IsStockAvailable(detail.IdProduct, detail.Quantity))
+                {
+                    return null;
+                }
+            }
+
             var sale = new Sale
             {
                 IdCustomer = entity.IdCustomer,
@@ -74,7 +86,11 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
             var saleCreated = await _saleRepository.AddAsync(sale);
 
-            if (saleCreated == null) return null;
+            // Actualizar el stock de los productos vendidos
+            foreach (var detail in entity.SaleDetails)
+            {
+                await _productService.UpdateStockAfterSaleAsync(detail.IdProduct, detail.Quantity);
+            }
 
             return new SaleReadDto
             {
@@ -95,6 +111,14 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<SaleReadDto> UpdateAsync(int id, SaleUpdateDto entity)
         {
+            foreach (var detail in entity.SaleDetails)
+            {
+                if (! await _productService.IsStockAvailable(detail.IdProduct, detail.Quantity))
+                {
+                    return null;
+                }
+            }
+
             var sale = await _saleRepository.GetByIdAsync(id);
             if (sale == null) return null;
 
@@ -112,6 +136,12 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             var saleUpdated = await _saleRepository.UpdateAsync(id, sale);
 
             if (saleUpdated == null) return null;
+
+            // Actualizar el stock de los productos vendidos
+            foreach (var detail in entity.SaleDetails)
+            {
+                await _productService.UpdateStockAfterSaleAsync(detail.IdProduct, detail.Quantity);
+            }
 
             return new SaleReadDto
             {
@@ -138,11 +168,13 @@ namespace LubricantesAyrthonAPI.Services.Implementations
             await _saleRepository.DeleteAsync(id);
             return true;
         }
-        
+
+        // Logica de negocio adicional
         public decimal CalculateTotalPrice(IEnumerable<SaleDetailCreateDto> saleDetails)
         {
             return saleDetails.Sum(sd => sd.Quantity * sd.UnitPrice);
         }
+
+        
     }
-}       
-            
+}

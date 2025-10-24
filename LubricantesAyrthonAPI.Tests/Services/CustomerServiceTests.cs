@@ -1,7 +1,6 @@
 ﻿
-using System.Data;
-using LubricanteAyrthon.Tests.TestDoubles.Fakes;
 using LubricantesAyrthonAPI.Dtos;
+using LubricantesAyrthonAPI.Exceptions;
 using LubricantesAyrthonAPI.Models;
 using LubricantesAyrthonAPI.Repositories.Interfaces;
 using LubricantesAyrthonAPI.Services.Implementations;
@@ -12,89 +11,7 @@ namespace LubricantesAyrthonAPI.Tests.Services
 {
     public class CustomerServiceTests
     {
-        // TC_001: Registrar un cliente con datos válidos
-        [Fact]
-        public async Task RegisterCustomer_ValidData_ReturnsSuccess()
-        {
-            // Arrange
-            var customerDto = new CustomerCreateDto
-            {
-                Ci = "3040011",
-                Name = "Mariano Messi",
-            };
-
-            var expectedCustomer = new Customer
-            {
-                Id = 1,
-                Ci = customerDto.Ci,
-                Name = customerDto.Name,
-            };
-
-            var repositoryMock = new Mock<IBaseRepository<Customer>>();
-
-            repositoryMock
-                .Setup(repository => repository.AddAsync(It.IsAny<Customer>()))
-                .ReturnsAsync(expectedCustomer);
-
-
-            var service = new CustomerService(repositoryMock.Object);
-
-            // Act
-            var result = await service.CreateAsync(customerDto);
-
-            // Assert
-            Assert.Equal(expectedCustomer.Id, result.Id);
-            Assert.Equal(expectedCustomer.Ci, result.Ci);
-            Assert.Equal(expectedCustomer.Name, result.Name);
-
-            // Verificar que el método AddAsync fue llamado una vez
-            repositoryMock.Verify(repository => repository.AddAsync(It.IsAny<Customer>()), Times.Once);
-        }
-
-        // TC_003: Consultar un cliente existente por ID
-        [Fact]
-        public async Task GetCustomerById_ExistingId_ReturnsCustomer()
-        {
-            // Arrange
-            var repositoryFake = new CustomerRepositoryFake();
-            var service = new CustomerService(repositoryFake);
-
-            var newCustomer = new Customer
-            {
-                Ci = "9876543",
-                Name = "Jose Luis Garcia"
-            };
-
-            var createdCustomer = await repositoryFake.AddAsync(newCustomer);
-
-            // Act
-            var result = await service.GetByIdAsync(createdCustomer.Id);
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(createdCustomer.Id, result.Id);
-            Assert.Equal(createdCustomer.Ci, result.Ci);
-            Assert.Equal(createdCustomer.Name, result.Name);
-        }
-
-        // TC_004: Consultar Cliente inexistente
-        [Fact]
-        public async Task GetCustomerById_NonExistentCustomer_ThrowsException()
-        {
-            // Arrange
-            var repositoryFake = new CustomerRepositoryFake();
-            var service = new CustomerService(repositoryFake);
-
-            var nonExistentId = 999;
-
-            // Act
-            Task act() => service.GetByIdAsync(nonExistentId);
-
-            // Assert
-            var exception = await Assert.ThrowsAsync<KeyNotFoundException>(act);
-            Assert.Equal($"Cliente con {nonExistentId} no encontrado", exception.Message);
-        }
-
-        // TC_005: Validar obtención de todos los clientes
+        // TC_CLIENTES_001 - Validar que GetAllAsync del CustomerService retorne todos los clientes desde el stub
         [Fact]
         public async Task GetAllAsync_ShouldReturnAllCustomers_FromStub()
         {
@@ -116,167 +33,272 @@ namespace LubricantesAyrthonAPI.Tests.Services
             );
         }
 
-        //TC_007: Validar actualización de cliente existente
+        // TC_CLIENTES_002 - VAalidar que GetAllAsync del CustomerService retorne lista vacía cuando no hay clientes
         [Fact]
-        public async Task UpdateAsync_ClienteExistente_RetornaClienteActualizado()
+        public async Task GetAllAsync_ShouldReturnEmptyList_WhenNoCustomersExist()
         {
             // Arrange
-            var repository = new CustomerRepositoryFake();
-            var service = new CustomerService(repository);
+            var mockRepo = new Mock<IBaseRepository<Customer>>();
 
-            var newCustomer = new Customer
-            {
-                Ci = "3040011",
-                Name = "Juan Miranda",
-                Email = "juan.miranda@example.com",
-                Phone = "44456789",
-                Address = "Calle Bolivar 123"
-            };
+            // Configurar el mock para retornar una lista vacía
+            mockRepo
+                .Setup(r => r.GetAllAsync())
+                .ReturnsAsync(new List<Customer>());
 
-            await repository.AddAsync(newCustomer);
-
-            var updateDto = new CustomerUpdateDto
-            {
-                Ci = "3040011",
-                Name = "Juan Miranda",
-                Email = "juan.miranda@example.com",
-                Phone = "44456789",
-                Address = "Calle Bolivar 123"
-            };
+            var service = new CustomerService(mockRepo.Object);
 
             // Act
-            var result = await service.UpdateAsync(1, updateDto);
+            var result = await service.GetAllAsync();
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(updateDto.Ci, result.Ci);
-            Assert.Equal(updateDto.Name, result.Name);
-            Assert.Equal(updateDto.Email, result.Email);
+            Assert.Empty(result);
         }
+        // TC_CLIENTES_005 - Validar que GetByIdAsync del CustomerService retorne cliente existente
 
-        //TC_008: Validar actualización de cliente inexistente
         [Fact]
-        public async Task UpdateAsync_ClienteInexistente_RetornaNull()
+        public async Task GetByIdAsync_ShouldReturnCustomer_WhenIdIsValid()
         {
             // Arrange
-            var mockRepository = new Mock<IBaseRepository<Customer>>();
+            var mockCustomerRepository = new Mock<IBaseRepository<Customer>>();
 
-            // Configuramos el mock para que GetByIdAsync devuelva null para cualquier ID
-            mockRepository
-                .Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync((Customer?)null);
+            var expectedCustomer = new Customer
+            {
+                Id = 1,
+                Ci = "3040011",
+                Name = "Juan Perez",
+                Email = "juan.perez@example.com",
+                Phone = "12345678",
+                Address = "Calle Falsa 123"
+            };
+            // Configurar mock para retornar el cliente esperado
+            mockCustomerRepository
+                .Setup(r => r.GetByIdAsync(1))
+                .ReturnsAsync(expectedCustomer);
+            var customerService = new CustomerService(mockCustomerRepository.Object);
+            // Act
+            var result = await customerService.GetByIdAsync(1);
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedCustomer.Id, result.Id);
+            Assert.Equal(expectedCustomer.Ci, result.Ci);
+            Assert.Equal(expectedCustomer.Name, result.Name);
+            Assert.Equal(expectedCustomer.Email, result.Email);
+            Assert.Equal(expectedCustomer.Phone, result.Phone);
+            Assert.Equal(expectedCustomer.Address, result.Address);
+        }
 
-            var service = new CustomerService(mockRepository.Object);
+        // TC_CLIENTES_006 - Validar que GetByIdAsync del CustomerService retorne excepción con ID inválido
+        [Fact]
+        public async Task GetByIdAsync_ShouldThrowKeyNotFoundException_WhenIdIsInvalid()
+        {
+            // Arrange
+            var mockCustomerRepository = new Mock<IBaseRepository<Customer>>();
 
-            var updateDto = new CustomerUpdateDto
+            // Configurar mock para retornar null (cliente no encontrado)
+            mockCustomerRepository
+                .Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync((Customer)null);
+
+            var customerService = new CustomerService(mockCustomerRepository.Object);
+
+            int invalidCustomerId = 999;
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<KeyNotFoundException>(
+                () => customerService.GetByIdAsync(invalidCustomerId)
+            );
+
+            Assert.Contains($"Cliente con Id {invalidCustomerId} no encontrado.", exception.Message);
+        }
+
+        // TC_CLIENTES_009 – Validar que CreateAsync del CustomerService agregue un cliente correctamente
+        [Fact]
+        public async Task CreateAsync_ShouldAddCustomerSuccessfully()
+        {
+            // Arrange
+            var newCustomerDto = new CustomerCreateDto
             {
                 Ci = "3040011",
-                Name = "Pedro Gómez",
-                Email = "pedro.gomez@example.com",
-                Phone = "987654321",
-                Address = "Avenida Siempre Viva 742"
+                Name = "Juan Perez",
+                Email = "juan.perez@email.com",
+                Phone = "7551234"
             };
 
+            var mockRepository = new Mock<IBaseRepository<Customer>>();
+            mockRepository.Setup(r => r.AddAsync(It.IsAny<Customer>()))
+                          .ReturnsAsync((Customer customer) =>
+                          {
+                              customer.Id = 1; // Simula que el repositorio asigna un Id
+                              return customer;
+                          });
+
+            var customerService = new CustomerService(mockRepository.Object);
+
             // Act
-            var result = await service.UpdateAsync(99, updateDto); // ID inexistente
+            var result = await customerService.CreateAsync(newCustomerDto);
 
             // Assert
-            Assert.Null(result);
-            mockRepository.Verify(repo => repo.GetByIdAsync(99), Times.Once);
-            mockRepository.Verify(repo => repo.UpdateAsync(It.IsAny<int>(), It.IsAny<Customer>()), Times.Never);
+            Assert.NotNull(result);
+            Assert.Equal(1, result.Id);
+            Assert.Equal(newCustomerDto.Ci, result.Ci);
+            Assert.Equal(newCustomerDto.Name, result.Name);
+            Assert.Equal(newCustomerDto.Email, result.Email);
+            Assert.Equal(newCustomerDto.Phone, result.Phone);
+
+            mockRepository.Verify(r => r.AddAsync(It.IsAny<Customer>()), Times.Once);
         }
 
-        //TC_009: Validar actualización de cliente con repositorio fallante
-
+        // TC_CLIENTES_010 – Validar que CreateAsync del CustomerService lance excepción si se intenta crear cliente con email duplicado
         [Fact]
-        public async Task UpdateAsync_ErrorEnRepositorio_RetornaNull()
+        public async Task CreateAsync_ShouldThrowException_WhenEmailIsDuplicate()
         {
             // Arrange
+            var existingCustomer = new Customer
+            {
+                Id = 1,
+                Ci = "3040011",
+                Name = "Juan Perez",
+                Email = "juan.perez@email.com",
+                Phone = "78762636"
+            };
 
+            var mockRepository = new Mock<IBaseRepository<Customer>>();
+            mockRepository.Setup(r => r.GetByIdAsync(existingCustomer.Id))
+                          .ReturnsAsync(existingCustomer); // Simula que el email ya existe
+
+            var customerService = new CustomerService(mockRepository.Object);
+
+            var newCustomerDto = new CustomerCreateDto
+            {
+                Ci = "3040022",
+                Name = "Pedro Gomez",
+                Email = "pedrogomez@gmail.com",
+                Phone = "7551234"
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<DuplicateEmailException>(() => customerService.CreateAsync(newCustomerDto));
+        }
+
+
+        // TC_CLIENTES_013 – Validar que UpdateAsync del CustomerService modifique datos de cliente existente correctamente
+        [Fact]
+        public async Task UpdateAsync_ShouldModifyExistingCustomerSuccessfully()
+        {
+            // Arrange
             var existingCustomer = new Customer
             {
                 Id = 1,
                 Ci = "3040011",
                 Name = "Juan Pérez",
-                Email = "juan.perez@example.com",
-                Phone = "111222333",
-                Address = "Calle Falsa 123"
+                Email = "juan.perez@email.com",
+                Phone = "78762636"
             };
 
             var updateDto = new CustomerUpdateDto
             {
                 Ci = "3040011",
-                Name = "Juan Pérez Modificado",
-                Email = "juan.perez@example.com",
-                Phone = "111222333",
-                Address = "Calle Falsa 123"
+                Name = "Juan Carlos Pérez",
+                Email = "juan.perez@email.com",
+                Phone = "555-5678"
             };
 
             var mockRepository = new Mock<IBaseRepository<Customer>>();
-            // Configurar mock para GetByIdAsync (cliente existente)
-            mockRepository
-                .Setup(r => r.GetByIdAsync(1))
-                .ReturnsAsync(existingCustomer);
+            mockRepository.Setup(r => r.GetByIdAsync(existingCustomer.Id))
+                          .ReturnsAsync(existingCustomer); // Cliente existente
 
-            // Configurar mock para UpdateAsync (simula fallo, retorna null)
-            mockRepository
-                .Setup(r => r.UpdateAsync(1, It.IsAny<Customer>()))
-                .ReturnsAsync((Customer?)null);
+            mockRepository.Setup(r => r.UpdateAsync(existingCustomer.Id, It.IsAny<Customer>()))
+                          .ReturnsAsync((int id, Customer customer) => customer); // Retorna el cliente actualizado
 
-            var service = new CustomerService(mockRepository.Object);
+            var customerService = new CustomerService(mockRepository.Object);
 
             // Act
-            var result = await service.UpdateAsync(1, updateDto);
+            var result = await customerService.UpdateAsync(existingCustomer.Id, updateDto);
 
             // Assert
-            Assert.Null(result);
-            mockRepository.Verify(r => r.GetByIdAsync(1), Times.Once);
-            mockRepository.Verify(r => r.UpdateAsync(1, It.IsAny<Customer>()), Times.Once);
+            Assert.NotNull(result);
+            Assert.Equal(updateDto.Name, result.Name);
+            Assert.Equal(updateDto.Email, result.Email);
+            Assert.Equal(updateDto.Phone, result.Phone);
 
+            mockRepository.Verify(r => r.UpdateAsync(existingCustomer.Id, It.IsAny<Customer>()), Times.Once);
         }
 
-        //TC_010: Validar eliminación de cliente existente
+        // TC_CLIENTES_014 – Validar que UpdateAsync del CustomerService lance CustomerNotFoundException si el cliente no existe
         [Fact]
-        public async Task DeleteAsync_ClienteExistente_RetornaTrue()
-        {
-            // Arrange
-            var repository = new CustomerRepositoryStub();
-            var service = new CustomerService(repository);
-
-            // Act
-            var result = await service.DeleteAsync(1);
-
-            // Assert
-            Assert.True(result);
-        }
-
-        [Fact]
-        public async Task DeleteAsync_ClienteNoExistente_RetornaFalse()
+        public async Task UpdateAsync_ShouldThrowCustomerNotFoundException_WhenCustomerDoesNotExist()
         {
             // Arrange
             var mockRepository = new Mock<IBaseRepository<Customer>>();
-            var service = new CustomerService(mockRepository.Object);
+            mockRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                          .ReturnsAsync((Customer)null); // Cliente no existe
 
-            // Configurar GetByIdAsync para devolver null (no existe cliente)
-            mockRepository
-                .Setup(r => r.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync((Customer)null);
+            var customerService = new CustomerService(mockRepository.Object);
 
-            // Act
-            var result = await service.DeleteAsync(99);
+            var updateDto = new CustomerUpdateDto
+            {
+                Ci = "3040022",
+                Name = "Carlos Gómez",
+                Email = "carlos.gomez@email.com",
+                Phone = "78762636"
+            };
 
-            // Assert
-            Assert.False(result);
-
-            // Verificar que GetByIdAsync fue llamado con el ID correcto
-            mockRepository.Verify(r => r.GetByIdAsync(99), Times.Once);
-
-            // Verificar que DeleteAsync nunca fue llamado
-            mockRepository.Verify(r => r.DeleteAsync(It.IsAny<int>()), Times.Never);
+            // Act & Assert
+            await Assert.ThrowsAsync<CustomerNotFoundException>(() => customerService.UpdateAsync(1, updateDto));
         }
 
 
+        // TC_CLIENTES_017 – Validar que DeleteAsync del CustomerService elimine cliente existente correctamente
+        [Fact]
+        public async Task DeleteAsync_ShouldRemoveExistingCustomerSuccessfully()
+        {
+            // Arrange
+            var existingCustomer = new Customer
+            {
+                Id = 1,
+                Ci = "12345678",
+                Name = "Juan Pérez",
+                Email = "juan.perez@email.com",
+                Phone = "555-1234",
+                Address = "Av. Siempre Viva 123"
+            };
 
+            var mockRepository = new Mock<IBaseRepository<Customer>>();
+            mockRepository.Setup(r => r.GetByIdAsync(existingCustomer.Id))
+                          .ReturnsAsync(existingCustomer); // Cliente existente
 
+            mockRepository.Setup(r => r.DeleteAsync(existingCustomer.Id))
+                          .ReturnsAsync(true); // Simula eliminación exitosa
+
+            var customerService = new CustomerService(mockRepository.Object);
+
+            // Act
+            var result = await customerService.DeleteAsync(existingCustomer.Id);
+
+            // Assert
+            Assert.True(result);
+            mockRepository.Verify(r => r.DeleteAsync(existingCustomer.Id), Times.Once);
+        }
+
+        // TC_CLIENTES_018 – Validar que DeleteAsync del CustomerService lance KeyNotFoundException si el cliente no existe
+        [Fact]
+        public async Task DeleteAsync_ShouldThrowKeyNotFoundException_WhenCustomerDoesNotExist()
+        {
+            // Arrange
+            var mockRepository = new Mock<IBaseRepository<Customer>>();
+            mockRepository.Setup(r => r.GetByIdAsync(It.IsAny<int>()))
+                          .ReturnsAsync((Customer)null); // Cliente no encontrado
+
+            var customerService = new CustomerService(mockRepository.Object);
+
+            int nonExistentCustomerId = 999;
+
+            // Act & Assert
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => customerService.DeleteAsync(nonExistentCustomerId));
+
+            // Verificación: no se intenta eliminar nada si el cliente no existe
+            mockRepository.Verify(r => r.DeleteAsync(It.IsAny<int>()), Times.Never);
+        }
     }
 }

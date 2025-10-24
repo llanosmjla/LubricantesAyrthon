@@ -25,6 +25,10 @@ namespace LubricantesAyrthonAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("El ID del vendedor debe ser un número positivo.");
+            }
             var seller = await _sellerService.GetByIdAsync(id);
             if (seller == null)
                 return NotFound();

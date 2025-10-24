@@ -46,6 +46,9 @@ namespace LubricantesAyrthonAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, CustomerUpdateDto customer)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+                
             var result = await _customerService.UpdateAsync(id, customer);
             if (result == null)
                 return NotFound();

@@ -34,8 +34,15 @@ namespace LubricantesAyrthonAPI.Services.Implementations
 
         public async Task<SellerReadDto> GetByIdAsync(int id)
         {
+            if (id <= 0)
+            {
+                throw new KeyNotFoundException($"Vendedor con Id {id} no encontrado.");
+            }
             var seller = await _sellerRepository.GetByIdAsync(id);
-            if (seller == null) return null;
+            if (seller == null)
+            {
+                throw new KeyNotFoundException($"Vendedor con Id {id} no encontrado.");
+            }
 
             return new SellerReadDto
             {

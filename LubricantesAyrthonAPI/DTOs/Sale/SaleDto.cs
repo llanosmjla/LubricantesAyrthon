@@ -52,6 +52,6 @@ namespace LubricantesAyrthonAPI.Dtos
         public decimal TotalPrice { get; set; }
         public DateTime SaleDate { get; set; }
         [Required]
-        public List<SaleDetailReadDto>? SaleDetails { get; set; }
+        public required List<SaleDetailReadDto> SaleDetails { get; set; }
     }
 }
