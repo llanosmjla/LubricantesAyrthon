@@ -53,7 +53,7 @@ dotnet test --collect:"XPlat Code Coverage"
 ```
 2. Generar reporte en HTML con ReportGenerator:
 ```bash
-dotnet reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage-report -reporttypes:Html
+reportgenerator -reports:**/coverage.cobertura.xml -targetdir:coverage-report -reporttypes:Html
 ```
 3. Abrir el informe en tu navegador desde la carpeta coverage-report/index.html.
 
